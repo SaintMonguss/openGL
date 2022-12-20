@@ -40,19 +40,38 @@ void Widget::resizeGL(int w, int h)
 
 void Widget::paintGL()
 {
+    GLushort arPat[] = {0xaaaa, 0xaaaa, 0xaaaa, 0xaaaa, 0x33ff, 0x33ff, 0x33ff, 0x57ff, 0x57ff};
+    GLint arFac[] = {1,2,3,4,1,2,3,1,2};
+
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0, 1.0, 1.0);
-    double rad = 0.5;
 
-    glBegin(GL_LINE_LOOP);
-    for(int i = 0; i < 360 ; i++)
+    glEnable(GL_LINE_STIPPLE);
+    GLfloat y;
+    GLint idx = 0;
+    for( y= 0.8; y>-0.8; y -= 0.2)
     {
-        double angle, x, y;
-        angle = i*3.141592 / 180;
-        x= rad*cos(angle);
-        y= rad *sin(angle);
-        glVertex2f(x,y);
+            glLineStipple(arFac[idx], arPat[idx]);
+            glBegin(GL_LINES);
+            glVertex2f(-0.8, y);
+            glVertex2f(0.8,y);
+            glEnd();
+            idx++;
+
     }
+//    glClear(GL_COLOR_BUFFER_BIT);
+//    glColor3f(1.0, 1.0, 1.0);
+//    double rad = 0.5;
+
+//    glBegin(GL_LINE_LOOP);
+//    for(int i = 0; i < 360 ; i++)
+//    {
+//        double angle, x, y;
+//        angle = i*3.141592 / 180;
+//        x= rad*cos(angle);
+//        y= rad *sin(angle);
+//        glVertex2f(x,y);
+//    }
 //    GLfloat x = -0.8;
 //    GLfloat y = 0.4;
 //    for(int i = 0; i < 6 ; i++)
